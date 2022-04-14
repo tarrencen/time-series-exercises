@@ -210,5 +210,14 @@ def get_sales_data():
     sales.to_csv(filename, index=False)
     return sales
 
+def get_sales_items_stores():
+    items = get_items_data()
+    sales = get_sales_data()
+    stores = get_stores_data()
+    sales_items_stores = pd.merge(sales, items, how='left', on='item_id')
+    sales_items_stores = pd.merge(sales_items_stores, stores, how='left', on='store_id')
+    return sales_items_stores
+    
+
 
     
