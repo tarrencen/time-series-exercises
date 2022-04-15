@@ -182,6 +182,7 @@ def get_stores_data():
     data = response.json()
     stores = data['payload']['stores']
     stores = pd.DataFrame(stores)
+    stores.to_csv(filename, index=False)
     return stores
 
 def get_sales_data():
@@ -210,14 +211,27 @@ def get_sales_data():
     sales.to_csv(filename, index=False)
     return sales
 
-def get_sales_items_stores():
-    items = get_items_data()
-    sales = get_sales_data()
-    stores = get_stores_data()
+def get_sales_items_stores(sales, items, stores):
+    filename = 'sales_items_stores.csv'
+    if os.path.exists(filename):
+        print('Reading from CSV file...')
+        return pd.read_csv(filename)
+
+    sales = pd.read_csv('sales.csv')
+    sales = sales.rename(columns= {'item': 'item_id', 'store': 'store_id'})
+    items = pd.read_csv('items.csv')
+    stores = pd.read_csv('stores.csv')
+    stores = stores.rename(columns= {'store': 'store_id'})
+    
     sales_items_stores = pd.merge(sales, items, how='left', on='item_id')
     sales_items_stores = pd.merge(sales_items_stores, stores, how='left', on='store_id')
+    sales_items_stores.to_csv(filename, index=False)
     return sales_items_stores
-    
+
+def get_opsd():
+    df = pd.read_csv('https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv')
+    return df
+
 
 
     
