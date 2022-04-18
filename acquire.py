@@ -186,7 +186,7 @@ def get_stores_data():
     return stores
 
 def get_sales_data():
-    filename= 'stores.csv'
+    filename= 'sales.csv'
     if os.path.exists(filename):
         print('Reading from CSV file...')
         return pd.read_csv(filename)
