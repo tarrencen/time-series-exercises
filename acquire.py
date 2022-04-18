@@ -229,7 +229,13 @@ def get_sales_items_stores():
     return sales_items_stores
 
 def get_opsd():
+    filename = 'opsd.csv'
+    if os.path.exists(filename):
+        print('Reading from CSV file...')
+        return pd.read_csv(filename)
+
     df = pd.read_csv('https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv')
+    df.to_csv(filename)
     return df
 
 
