@@ -211,7 +211,7 @@ def get_sales_data():
     sales.to_csv(filename, index=False)
     return sales
 
-def get_sales_items_stores(sales, items, stores):
+def get_sales_items_stores():
     filename = 'sales_items_stores.csv'
     if os.path.exists(filename):
         print('Reading from CSV file...')
