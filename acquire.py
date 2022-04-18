@@ -217,10 +217,10 @@ def get_sales_items_stores():
         print('Reading from CSV file...')
         return pd.read_csv(filename)
 
-    sales = pd.read_csv('sales.csv')
+    sales = get_sales_data()
     sales = sales.rename(columns= {'item': 'item_id', 'store': 'store_id'})
-    items = pd.read_csv('items.csv')
-    stores = pd.read_csv('stores.csv')
+    items = get_items_data()
+    stores = get_stores_data()
     stores = stores.rename(columns= {'store': 'store_id'})
     
     sales_items_stores = pd.merge(sales, items, how='left', on='item_id')
